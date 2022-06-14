@@ -20,14 +20,14 @@
       <ion-row>
         <ion-col>
           <ion-card>
-            <ion-slides pager="true">
-              <ion-slide *ngIf="latest_movie.poster_path != null">
+            <swiper [autoplay]="true" [keyboard]="true" [pagination]="true" >
+              <ng-template swiperSlide *ngIf="latest_movie.poster_path != null">
                 <img src="https://image.tmdb.org/t/p/w342/{{latest_movie.poster_path}}"/>
-              </ion-slide>
-              <ion-slide *ngIf="latest_movie.backdrop_path != null">
+              </ng-template>
+              <ng-template swiperSlide *ngIf="latest_movie.backdrop_path != null">
                 <img src="https://image.tmdb.org/t/p/w342/{{latest_movie.backdrop_path}}"/>
-              </ion-slide>
-            </ion-slides>
+              </ng-template>
+            </swiper>
             
             <ion-card-header>
               <ion-card-subtitle>{{latest_movie.original_title}}</ion-card-subtitle>
