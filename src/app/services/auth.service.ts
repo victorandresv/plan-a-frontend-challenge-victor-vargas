@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Login } from '../interfaces/login';
+import { Token } from '../interfaces/token';
 
 @Injectable({
   providedIn: 'root'
@@ -23,4 +24,30 @@ export class AuthService {
       //"MESSAGE ABOUT ERROR"
     }
   }
+
+  isUserLogedIn(){
+    let session:Token = {
+      expires_at: null,
+      request_token: null
+    }
+
+    //Try to parse a session. If exist redirect to home
+    try {
+      session = JSON.parse(sessionStorage.getItem('session_start'));
+      if(typeof session.expires_at != 'undefined'){
+        const expires = Date.parse(session.expires_at)
+
+        if(expires > Date.now()){
+          return 1
+        } else {
+          return 2
+        }
+      } else {
+        return 0
+      }
+    } catch(e){
+      return 0
+    }
+  }
+  
 }
