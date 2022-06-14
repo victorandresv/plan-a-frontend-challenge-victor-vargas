@@ -13,30 +13,35 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-
-    <ion-card>
-      <ion-slides pager="true">
-        <ion-slide *ngIf="latest_movie.poster_path != null">
-          <img src="https://image.tmdb.org/t/p/w342/{{latest_movie.poster_path}}"/>
-        </ion-slide>
-        <ion-slide *ngIf="latest_movie.backdrop_path != null">
-          <img src="https://image.tmdb.org/t/p/w342/{{latest_movie.backdrop_path}}"/>
-        </ion-slide>
-      </ion-slides>
-      
-      <ion-card-header>
-        <ion-card-subtitle>{{latest_movie.original_title}}</ion-card-subtitle>
-        <ion-card-title>{{latest_movie.title}}</ion-card-title>
-      </ion-card-header>
-    
-      <ion-card-content>{{latest_movie.overview}}</ion-card-content>
-    </ion-card>
+  <div>
 
     <ion-grid>
+
+      <ion-row>
+        <ion-col>
+          <ion-card>
+            <ion-slides pager="true">
+              <ion-slide *ngIf="latest_movie.poster_path != null">
+                <img src="https://image.tmdb.org/t/p/w342/{{latest_movie.poster_path}}"/>
+              </ion-slide>
+              <ion-slide *ngIf="latest_movie.backdrop_path != null">
+                <img src="https://image.tmdb.org/t/p/w342/{{latest_movie.backdrop_path}}"/>
+              </ion-slide>
+            </ion-slides>
+            
+            <ion-card-header>
+              <ion-card-subtitle>{{latest_movie.original_title}}</ion-card-subtitle>
+              <ion-card-title>{{latest_movie.title}}</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>{{latest_movie.overview}}</ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
       <ion-row>
 
-        <ion-col size="3">
+        <ion-col size="12" size-sm>
           <ion-card>
             <ion-card-content>
               <ion-list>
@@ -57,7 +62,7 @@
           </ion-card>
         </ion-col>
 
-        <ion-col size="3">
+        <ion-col size="12" size-sm>
           <ion-card>
             <ion-card-content>
               <ion-list>
@@ -83,7 +88,7 @@
           </ion-card>
         </ion-col>
 
-        <ion-col size="3">
+        <ion-col size="12" size-sm>
           <ion-card>
             <ion-card-content>
               <ion-list>
@@ -104,7 +109,7 @@
           </ion-card>
         </ion-col>
 
-        <ion-col size="3">
+        <ion-col size="12" size-sm>
           <ion-card>
             <ion-card-content>
               <ion-list>
@@ -133,7 +138,7 @@
         </ion-col>
 
 
-        <ion-col size="3">
+        <ion-col size="12" size-sm>
           <ion-card>
             <ion-card-content>
               <ion-list>
