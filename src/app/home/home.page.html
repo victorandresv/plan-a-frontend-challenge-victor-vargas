@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      {{latest_movie.title}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,159 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">{{latest_movie.title}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+    <ion-card>
+      <ion-slides pager="true">
+        <ion-slide *ngIf="latest_movie.poster_path != null">
+          <img src="https://image.tmdb.org/t/p/w342/{{latest_movie.poster_path}}"/>
+        </ion-slide>
+        <ion-slide *ngIf="latest_movie.backdrop_path != null">
+          <img src="https://image.tmdb.org/t/p/w342/{{latest_movie.backdrop_path}}"/>
+        </ion-slide>
+      </ion-slides>
+      
+      <ion-card-header>
+        <ion-card-subtitle>{{latest_movie.original_title}}</ion-card-subtitle>
+        <ion-card-title>{{latest_movie.title}}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>{{latest_movie.overview}}</ion-card-content>
+    </ion-card>
+
+    <ion-grid>
+      <ion-row>
+
+        <ion-col size="3">
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  ID: <ion-note slot="end">{{latest_movie.id}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Adult: <ion-checkbox slot="end" [(ngModel)]="latest_movie.adult"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  Language: <ion-note slot="end">{{latest_movie.original_language}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Tagline: <ion-note slot="end">{{latest_movie.tagline}}</ion-note>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  Status: <ion-note slot="end">{{latest_movie.status}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Release date: <ion-note slot="end">{{latest_movie.release_date}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Imdb ID: <ion-note slot="end">{{latest_movie.imdb_id}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Genres: 
+                  <ul>
+                    <li *ngFor="let item of latest_movie.genres">
+                      {{item.name}}
+                    </li>
+                  </ul>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  Budget: <ion-note slot="end">{{latest_movie.budget}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Homepage: <ion-note slot="end">{{latest_movie.homepage}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Popularity: <ion-note slot="end">{{latest_movie.popularity}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Revenue: <ion-note slot="end">{{latest_movie.revenue}}</ion-note>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="3">
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  Runtime: <ion-note slot="end">{{latest_movie.runtime}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Production companies: 
+                  <ul>
+                    <li *ngFor="let item of latest_movie.production_companies">
+                      {{item.name}}
+                    </li>
+                  </ul>
+                </ion-item>
+                <ion-item>
+                  Production countries: 
+                  <ul>
+                    <li *ngFor="let item of latest_movie.production_countries">
+                      {{item | json}}
+                    </li>
+                  </ul>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+
+        <ion-col size="3">
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  Video: <ion-checkbox slot="end" [(ngModel)]="latest_movie.video"></ion-checkbox>
+                </ion-item>
+                <ion-item>
+                  Vote average: <ion-note slot="end">{{latest_movie.vote_average}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Vote count: <ion-note slot="end">{{latest_movie.vote_count}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Spoken Languages: 
+                  <ul>
+                    <li *ngFor="let item of latest_movie.spoken_languages">
+                      {{item.name}}
+                    </li>
+                  </ul>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+
   </div>
 </ion-content>
