@@ -18,6 +18,29 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    let session:Token = {
+      expires_at: null,
+      request_token: null
+    }
+
+    //Try to parse a session. If exist redirect to home
+    try{
+      session = JSON.parse(sessionStorage.getItem('session_start'));
+      const expires = Date.parse(session.expires_at) // <<----- My only concern here is if the validation is correct due to the time zone, because I don't know what the time zone of the date given by the API is.
+
+      if(expires > Date.now()){
+        this.router.navigate(['/home']);
+
+      } else {
+        /**
+        I did not find an endpoint in the API to refresh the token, 
+        so reuse the login so that the app can work well without closing the session
+        */
+        this.CallAPI("planatest", "123456");
+      }
+    } catch(e){
+      console.log(e)
+    }
     
   }
 
@@ -34,19 +57,7 @@ export class LoginPage implements OnInit {
          * Enter the pass 123456 for successful login
         */
 
-        this.auth.Login("planatest", form.value.password).then(response => {
-          const data:any = response;
-          const token: Token = {
-            expires_at: data.expires_at,
-            request_token: data.request_token
-          }
-          sessionStorage.setItem("session_start", JSON.stringify(token));
-
-          this.router.navigate(['/home']);
-
-        }).catch(error =>{
-          this.PresentAlert("Error", error.error.status_message)
-        })
+        this.CallAPI("planatest", form.value.password);
         
       } else {
         this.PresentAlert("Invalid password", "Please enter at least 6 characters");
@@ -54,6 +65,24 @@ export class LoginPage implements OnInit {
     } else {
       this.PresentAlert("Invalid email", "Please enter an valid email address");
     }
+  }
+
+
+
+  private CallAPI(username: string, password: string){
+    this.auth.Login(username, password).then(response => {
+      const data:any = response;
+      const token: Token = {
+        expires_at: data.expires_at,
+        request_token: data.request_token
+      }
+      sessionStorage.setItem("session_start", JSON.stringify(token));
+
+      this.router.navigate(['/home']);
+
+    }).catch(error =>{
+      this.PresentAlert("Error", error.error.status_message)
+    })
   }
 
 
