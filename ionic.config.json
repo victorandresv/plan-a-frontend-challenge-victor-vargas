@@ -1,0 +1,7 @@
+{
+  "name": "Plan a Frontend Challenge Victor Vargas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
