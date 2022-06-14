@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Token } from '../interfaces/token';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,15 +12,41 @@ import { AlertController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   constructor(
-    private alertController: AlertController
+    private alertController: AlertController,
+    private auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    
   }
 
   Login(form){
     if(this.ValidateEmail(form.value.email)){
       if(form.value.password.length >= 6){
+
+        /** 
+         * The requirement is to login with email and password, 
+         * but the API has a user that is not of type email, 
+         * therefore I am not connecting the email with the API user, 
+         * I am only passing the password and the default user "planatest".
+         * 
+         * Enter the pass 123456 for successful login
+        */
+
+        this.auth.Login("planatest", form.value.password).then(response => {
+          const data:any = response;
+          const token: Token = {
+            expires_at: data.expires_at,
+            request_token: data.request_token
+          }
+          sessionStorage.setItem("session_start", JSON.stringify(token));
+
+          this.router.navigate(['/home']);
+
+        }).catch(error =>{
+          this.PresentAlert("Error", error.error.status_message)
+        })
         
       } else {
         this.PresentAlert("Invalid password", "Please enter at least 6 characters");
