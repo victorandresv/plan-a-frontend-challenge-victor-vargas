@@ -9,7 +9,7 @@ export class MoviesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  async Latest(){
-    return await this.httpClient.get(environment.api.movies_latest_url+environment.api.key).toPromise();
+  Latest(){
+    return this.httpClient.get(environment.api.movies_latest_url+environment.api.key)
   }
 }

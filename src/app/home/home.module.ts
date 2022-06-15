@@ -6,6 +6,8 @@ import { HomePage } from './home.page';
 import { SwiperModule } from 'swiper/angular';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { USER_PROVIDED_EFFECTS } from '@ngrx/effects';
+import { MovieEffects } from '../ngrx/movie.effects';
 
 
 @NgModule({
@@ -16,6 +18,14 @@ import { HomePageRoutingModule } from './home-routing.module';
     HomePageRoutingModule,
     SwiperModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
+  providers: [
+    MovieEffects,
+    {
+      provide: USER_PROVIDED_EFFECTS,
+      multi: true,
+      useValue: [MovieEffects],
+    },
+  ]
 })
 export class HomePageModule {}
