@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Movie } from '../interfaces/movie';
 import { Token } from '../interfaces/token';
-import { LoadMovieAction } from '../ngrx/movie.actions';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -15,9 +14,9 @@ import { AuthService } from '../services/auth.service';
 export class HomePage implements OnInit {
 
 
-  movie$: Observable<Movie> = this.store.select(state => state.movie);
-  
-  public latest_movie: Movie;
+  movie$: Observable<Movie> = this.store.pipe(
+    select((state) => state.movie),
+  )
 
   constructor(
     private store: Store<{movie: Movie}>,
@@ -31,6 +30,7 @@ export class HomePage implements OnInit {
     } else if (this.auth.isUserLogedIn() == 2) {
       this.CallAPI("planatest", "123456");
     } else if (this.auth.isUserLogedIn() == 1){
+
       this.store.dispatch({type: 'LoadMovieAction'});
     }
   }

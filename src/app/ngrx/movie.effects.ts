@@ -15,8 +15,7 @@ export class MovieEffects {
             catchError(() => EMPTY)
           )
         )
-      )
-    );
+      ));
  
   constructor(
     private actions$: Actions,

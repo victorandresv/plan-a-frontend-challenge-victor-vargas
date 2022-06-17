@@ -1,6 +1,5 @@
-import { createReducer, on } from "@ngrx/store";
+import { Action, createReducer, on, State } from "@ngrx/store";
 import { Movie } from "../interfaces/movie";
-import { LoadedMovieAction } from "./movie.actions";
 
 export const initialState: Movie = {
     adult: false,
@@ -27,7 +26,23 @@ export const initialState: Movie = {
     vote_count: 0
 }
 
+export function movieReducer(state = initialState, action: Action){
+    switch(action.type){
+        case 'LoadedMovieAction':
+            const data:any = action
+            const movie: Movie = data.payload
+            return movie
+        default:
+            return state
+    }
+}
+
+/*
 export const movieReducer = createReducer(
     initialState,
-    on(LoadedMovieAction, (movie) => movie)
+    on(LoadedMovieAction, (movie) => {
+        console.log(movie)
+        return movie
+    })
 )
+*/
