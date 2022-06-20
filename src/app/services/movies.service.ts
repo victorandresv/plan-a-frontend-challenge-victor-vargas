@@ -12,4 +12,8 @@ export class MoviesService {
   Latest(){
     return this.httpClient.get(environment.api.movies_latest_url+environment.api.key)
   }
+
+  TopRated(page: number){
+    return this.httpClient.get(environment.api.movies_top_rated+environment.api.key+"&page="+page)
+  }
 }

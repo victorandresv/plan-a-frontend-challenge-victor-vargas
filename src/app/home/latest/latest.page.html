@@ -1,0 +1,177 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title *ngIf="movie$ | async">
+      {{(movie$ | async).title}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" *ngIf="movie$ | async">{{(movie$ | async).title}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="movie$ | async">
+
+    <ion-grid>
+
+      <ion-row>
+        <ion-col>
+          <ion-card>
+            <swiper [autoplay]="true" [keyboard]="true" [pagination]="true" >
+              <ng-template swiperSlide *ngIf="(movie$ | async).poster_path != null">
+                <img src="https://image.tmdb.org/t/p/w342/{{(movie$ | async).poster_path}}"/>
+              </ng-template>
+              <ng-template swiperSlide *ngIf="(movie$ | async).backdrop_path != null">
+                <img src="https://image.tmdb.org/t/p/w342/{{(movie$ | async).backdrop_path}}"/>
+              </ng-template>
+            </swiper>
+            
+            <ion-card-header>
+              <ion-card-subtitle>{{(movie$ | async).original_title}}</ion-card-subtitle>
+              <ion-card-title>{{(movie$ | async).title}}</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>{{(movie$ | async).overview}}</ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+
+        <ion-col size="12" size-sm>
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  ID: <ion-note slot="end">{{(movie$ | async).id}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Adult: 
+                  <ion-icon slot="end" color="success" name="checkmark-circle" *ngIf="(movie$ | async).adult"></ion-icon>
+                  <ion-icon slot="end" color="danger" name="close-circle" *ngIf="!(movie$ | async).adult"></ion-icon>
+                </ion-item>
+                <ion-item>
+                  Language: <ion-note slot="end">{{(movie$ | async).original_language}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Tagline: <ion-note slot="end">{{(movie$ | async).tagline}}</ion-note>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" size-sm>
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  Status: <ion-note slot="end">{{(movie$ | async).status}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Release date: <ion-note slot="end">{{(movie$ | async).release_date}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Imdb ID: <ion-note slot="end">{{(movie$ | async).imdb_id}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Genres: 
+                  <ul>
+                    <li *ngFor="let item of (movie$ | async).genres">
+                      {{item.name}}
+                    </li>
+                  </ul>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" size-sm>
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  Budget: <ion-note slot="end">{{(movie$ | async).budget}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Homepage: <ion-note slot="end">{{(movie$ | async).homepage}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Popularity: <ion-note slot="end">{{(movie$ | async).popularity}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Revenue: <ion-note slot="end">{{(movie$ | async).revenue}}</ion-note>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" size-sm>
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  Runtime: <ion-note slot="end">{{(movie$ | async).runtime}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Production companies: 
+                  <ul>
+                    <li *ngFor="let item of (movie$ | async).production_companies">
+                      {{item.name}}
+                    </li>
+                  </ul>
+                </ion-item>
+                <ion-item>
+                  Production countries: 
+                  <ul>
+                    <li *ngFor="let item of (movie$ | async).production_countries">
+                      {{item | json}}
+                    </li>
+                  </ul>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+
+        <ion-col size="12" size-sm>
+          <ion-card>
+            <ion-card-content>
+              <ion-list>
+                <ion-item>
+                  Video: 
+                  <ion-icon slot="end" color="success" name="checkmark-circle" *ngIf="(movie$ | async).video"></ion-icon>
+                  <ion-icon slot="end" color="danger" name="close-circle" *ngIf="!(movie$ | async).video"></ion-icon>
+                </ion-item>
+                <ion-item>
+                  Vote average: <ion-note slot="end">{{(movie$ | async).vote_average}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Vote count: <ion-note slot="end">{{(movie$ | async).vote_count}}</ion-note>
+                </ion-item>
+                <ion-item>
+                  Spoken Languages: 
+                  <ul>
+                    <li *ngFor="let item of (movie$ | async).spoken_languages">
+                      {{item.name}}
+                    </li>
+                  </ul>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+</ion-content>
